@@ -145,6 +145,49 @@ gmc_method: sparseOptFlow
       * A Tkinter summary window pops up with event logs.
 
 -----
+### Core logic 
+
+### Startup
+
+Load YOLO model (yolov8n.pt) and chosen tracker config.
+
+Try loading zones.json. If absent, open a frame for the user to draw zones.
+
+### Zone drawing
+
+User left-clicks to add polygon vertices.
+
+Press c to complete a polygon (≥3 points) and name it.
+
+Save all zones to zones.json.
+
+### Video processing loop (per frame)
+
+Run model.track(frame, tracker=cfg, classes=[0]) to detect people and get track IDs.
+
+For each detection: compute centroid, update last positions (deque), then call check_zone_intrusion(id, centroid, conf).
+
+Draw detection boxes (red if inside zone, green if outside), draw zones and stats, write output frame.
+
+### Intrusion check
+
+For each object ID, find if centroid is inside any polygon using cv2.pointPolygonTest(zone, point, False) >= 0.
+
+If previously not in zone and now in zone: set in_zone=True, store entry_time, log entered event.
+
+If previously in zone and now not: compute duration, set in_zone=False, log exited event with duration.
+
+### Logging & final GUI
+
+Each event is appended to intrusion_events.json (newline-separated JSON objects).
+
+After processing, launch a Tkinter window with:
+
+Bar chart: intrusions per zone
+
+Pie chart: intrusions vs exits
+
+Scrollable event log and Save Report button (writes intrusion_summary.txt).
 
 ### 🪟 Intrusion Report GUI
 
