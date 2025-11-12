@@ -145,6 +145,67 @@ gmc_method: sparseOptFlow
       * A Tkinter summary window pops up with event logs.
 
 -----
+### Main Components 
+### Model & Tracker
+
+self.model = YOLO("yolov8n.pt") — YOLOv8 detector.
+
+setup_tracking() chooses a tracker config (bytetrack, botsort, or centroid/no tracker).
+
+model.track(frame, tracker=...) returns detections with bounding boxes, confidence and track ids.
+
+### Zone management
+
+Zones are polygon arrays (self.zones) with names (self.zone_names).
+
+draw_zones_ui(frame) allows drawing zones interactively on a frame using OpenCV mouse callbacks. Zones are saved/loaded from zones.json.
+
+### Object state / bookkeeping
+
+self.object_states: defaultdict storing per-object info:
+
+in_zone (bool), zone_name, entry_time, positions (deque), first_seen, total_detections.
+
+self.events_log: list of events (entered/exited) written to intrusion_events.json (one JSON per line).
+
+### Event logic
+
+check_zone_intrusion(object_id, point, confidence):
+
+Uses cv2.pointPolygonTest to check if centroid is inside any polygon.
+
+Detects transitions:
+
+enter: previously not in zone and now inside → set entry_time, log 'entered'.
+
+exit: previously in zone and now outside → compute duration, log 'exited', clear entry_time.
+
+### Visualization
+
+draw_detection(...): draws bounding box, ID, status (IN zone or Safe), centroid.
+
+draw_zones(...): fills polygons with translucent overlay, draws borders and names.
+
+draw_stats(...): frame counter and number of events on-screen.
+
+### Processing loop
+
+process_video(video_path):
+
+Opens video, reads frames, runs model.track, updates object_states, runs zone checks, draws overlays, writes output video and shows live window.
+
+On finish, spawns show_intrusion_summary() (Tkinter) to show interactive report.
+
+### Dashboard / Report
+
+show_intrusion_summary() builds a Tk window:
+
+Intrusion counts by zone (bar chart), pie chart of intrusions vs exits.
+
+Text log of events with color tags.
+
+Buttons to save summary to intrusion_summary.txt.
+
 ### Core logic 
 
 ### Startup
