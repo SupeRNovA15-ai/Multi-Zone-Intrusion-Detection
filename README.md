@@ -1,5 +1,4 @@
 # Multi-Zone-Intrusion-Detection
-Here is the remaining content formatted as a singular, pastable bash script.
 
 This script uses a `cat << 'EOF'` (here-document) to encapsulate the documentation. You can save this as a `.sh` file, and when you run it, it will print the formatted README text to your console.
 
