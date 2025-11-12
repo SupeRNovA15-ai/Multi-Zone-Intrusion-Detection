@@ -40,23 +40,7 @@ It allows users to:
 
 ```
 
-multi_zone_intrusion/
-│
-├── main.py                       # Main Python script
-├── README.md                     # Project documentation
-│
-├── models/
-│   └── yolov8n.pt                 # YOLOv8 weights file
-│
-├── trackers/
-│   ├── bytetrack.yaml             # ByteTrack configuration
-│   └── botsort.yaml               # BoT-SORT configuration
-│
-├── zones.json                     # Saved user-defined zones (auto-created)
-├── intrusion_events.json          # Structured event logs (auto-created)
-├── intrusion_events.log           # Human-readable log file (auto-created)
-├── intrusion_summary.txt          # Exported Tkinter summary (optional)
-└── out-<video_name>.mp4           # Output video with overlays
+<img width="772" height="521" alt="image" src="https://github.com/user-attachments/assets/7c1196cb-d0cc-4c50-9d88-32ded9f54cd6" />
 
 
 ````
