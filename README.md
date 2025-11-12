@@ -40,23 +40,24 @@ It allows users to:
 
 ```
 
-multi\_zone\_intrusion/
+multi_zone_intrusion/
 │
-├── main.py                       \# Main Python script
-├── README.md                     \# Project documentation
+├── main.py                       # Main Python script
+├── README.md                     # Project documentation
 │
 ├── models/
-│   └── yolov8n.pt                 \# YOLOv8 weights file
+│   └── yolov8n.pt                 # YOLOv8 weights file
 │
 ├── trackers/
-│   ├── bytetrack.yaml             \# ByteTrack configuration
-│   └── botsort.yaml               \# BoT-SORT configuration
+│   ├── bytetrack.yaml             # ByteTrack configuration
+│   └── botsort.yaml               # BoT-SORT configuration
 │
-├── zones.json                     \# Saved user-defined zones (auto-created)
-├── intrusion\_events.json          \# Structured event logs (auto-created)
-├── intrusion\_events.log           \# Human-readable log file (auto-created)
-├── intrusion\_summary.txt          \# Exported Tkinter summary (optional)
-└── out-\<video\_name\>.mp4           \# Output video with overlays
+├── zones.json                     # Saved user-defined zones (auto-created)
+├── intrusion_events.json          # Structured event logs (auto-created)
+├── intrusion_events.log           # Human-readable log file (auto-created)
+├── intrusion_summary.txt          # Exported Tkinter summary (optional)
+└── out-<video_name>.mp4           # Output video with overlays
+
 
 ````
 
